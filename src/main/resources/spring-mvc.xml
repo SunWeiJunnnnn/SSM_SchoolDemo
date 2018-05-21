@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc
+				http://www.springframework.org/schema/mvc/spring-mvc.xsd
+				http://www.springframework.org/schema/beans
+				http://www.springframework.org/schema/beans/spring-beans.xsd
+				http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- 标签库中加入mvn,然后可以启动mvc注解了 -->
+    <mvc:annotation-driven/>
+    <!-- 项目中有一些资源，比如图片等，是不需要进过mvc去代理发布的，通过resources标签排除掉 -->
+    <mvc:resources mapping="/content/**" location="/content/"/>
+
+    <!-- 配置 dbcp 数据源 -->
+
+
+
+    <!-- 第一种玩法：视图解析器 -->
+    <bean
+            class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass"
+                  value="org.springframework.web.servlet.view.JstlView" />
+        <!-- 前缀：从根目录到视图文件夹 -->
+        <property name="prefix" value="/WEB-INF/page/" />
+        <!-- 后缀：视图文件的后缀名 -->
+        <property name="suffix" value=".jsp" />
+    </bean>
+    <context:component-scan base-package="com.controller" />
+</beans>
