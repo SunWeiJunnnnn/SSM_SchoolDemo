@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
@@ -12,6 +13,7 @@
      	   http://www.springframework.org/schema/tx/spring-tx.xsd">
     <!-- JDBC 连接 properties 文件 -->
     <context:property-placeholder location="classpath:jdbc.properties" />
+
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
         <property name="driverClassName" value="${jdbc.driver}" />
@@ -29,16 +31,16 @@
         <!-- 获取连接最大等待时间 -->
         <property name="maxWait" value="${maxWait}"/>
     </bean>
-    <!-- 配置 MyBatis 的 SessionFactory 通过spring来管理mybatis的所有配置文件（which 是mybatis中最大块的），还有基本包配置，这个sqlSessionFactory太方便了 -->
+    <!-- 配置 MyBatis 的 SessionFactory 通过spring来管理mybatis的所有配置文件，它为每一个map指定一个SessionFactory，还可以指定类型基础包 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="mapperLocations" value="classpath:mapper/*.xml" />
+        <!--所有没有指定保的type，都会到则个package中找-->
         <property name="typeAliasesPackage" value="com.pojo" />
     </bean>
-    <!-- 扫描 DAO 接口所在包名，Spring 会自动代理生成其下的接口实现类 -->
-    <!-- 这个配置能去掉sqlsession.getMapper这个代码不用写了，神奇不神奇 -->
+    <!--MapperScannerConfigurer 可以扫描-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.pojo" />
+        <property name="basePackage" value="com.dao" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
     <!-- 事务管理 -->
