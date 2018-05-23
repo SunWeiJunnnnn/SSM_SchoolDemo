@@ -8,7 +8,8 @@
 				http://www.springframework.org/schema/beans/spring-beans.xsd
 				http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context.xsd">
-    <!-- 标签库中加入mvn,然后可以启动mvc注解了 -->
+   <!-- DispatcherServlet -> HandlerMapping -> Controller -> ModelAndView -> ViewResolver-->
+    <!-- 标签库中加入mvn,然后可以启动mvc注解了,这个标签启动了RequestMappingHandlerAdapter控制处理器 -->
     <mvc:annotation-driven/>
     <!-- 项目中有一些资源，比如图片等，是不需要进过mvc去代理发布的，通过resources标签排除掉 -->
     <mvc:resources mapping="/content/**" location="/content/"/>
@@ -17,7 +18,7 @@
 
 
 
-    <!-- 第一种玩法：视图解析器 -->
+    <!-- 视图解析器 InternalResourceViewResolver -->
     <bean
             class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass"
@@ -27,5 +28,20 @@
         <!-- 后缀：视图文件的后缀名 -->
         <property name="suffix" value=".jsp" />
     </bean>
+
+
+    <!-- 默认的映射处理器BeanNameUrlHandlerMapping -->
+    <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+    <!-- 简单的 url 映射处理器，SimpleUrlHandlerMapping -->
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="/test/index">indexController</prop>
+            </props>
+        </property>
+    </bean>
+    <!-- controller bean -->
+    <bean id="homeController" name="/home"
+          class="com.controller.HomeController" />
     <context:component-scan base-package="com.controller" />
 </beans>
