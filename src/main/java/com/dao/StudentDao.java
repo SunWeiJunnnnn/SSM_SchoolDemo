@@ -1,8 +1,16 @@
 package com.dao;
 
 import com.pojo.Student;
+import java.util.*;
+
 
 public interface StudentDao {
-    public Student fetchbyId(int id );
+     Student fetchById(int id );
+     void add(Student student);
 
+    boolean delete(int id);
+
+    boolean update(Student student);
+
+    List<Student> getAll();
 }
