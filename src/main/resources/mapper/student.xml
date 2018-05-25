@@ -2,9 +2,24 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="com.dao.StudentDao" >
+    <select id="fetchById" parameterType="int" resultType="Student">
+        SELECT * FROM  STUDENT WHERE  id = #{ID}
+    </select>
+    <insert id="add" parameterType="Student">
+        /*oracle 数据库返回主键*/
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            SELECT student_primary_key.nextval as id FROM  dual
+        </selectKey>
+        INSERT INTO  Student(id,name,birthday,gender) VALUES(#{id},#{name},#{birthday},#{gender})
+    </insert>
+    <delete id="delete" parameterType="int" >
+        DELETE FROM Student WHERE  id = #{id}
+    </delete>
+   <!-- <update id="update" parameterType="Student" parameterMap="hashmap">
 
-<mapper namespace="com.dao.StudentDao">
-    <select id="fetchById" parameterType="int" resultType="com.pojo.Student" >
-        SELECT s.name,s.birthday,s.gender FROM Student s WHERE  s.id = #{id}
+    </update>-->
+    <select id="getAll"  resultType="Student" >
+        select * from STUDENT
     </select>
 </mapper>
