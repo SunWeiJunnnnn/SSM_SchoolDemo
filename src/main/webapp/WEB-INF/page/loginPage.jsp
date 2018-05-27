@@ -9,7 +9,7 @@
     <script src="${pageContext.request.contextPath}/content/js/jquery-1.11.3.js"></script>
     <%--bootstrap--%>
     <script src="<c:url value="/content/bootstrap/js/bootstrap.min.js"/>"></script>
-    <script src="${pageContext.request.contextPath}/content/js/loginPage.js"></script>
+    <script src="${pageContext.request.contextPath}/content/js/loginPage.js" type="text/javascript"></script>
     <link href="${pageContext.request.contextPath}/content/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -22,17 +22,17 @@
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                <form id="loginForm" action="${pageContext.request.contextPath}/doLogin" method="post">
+                <form id="loginForm" >
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="username" class="form-control" id="username" placeholder="Username">
+                        <input type="username" class="form-control" id="username" placeholder="Username" name="username">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password" name="password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <button type="signup" class="btn btn-info">SignUp</button>
+                    <button type="button" class="btn btn-primary" id="loginBtn">Submit</button>
+                    <button type="button" class="btn btn-info" id="signup" href="/signup">SignUp</button>
                 </form>
             </div>
         </div>
