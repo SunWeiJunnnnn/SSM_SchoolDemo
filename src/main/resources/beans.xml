@@ -65,4 +65,14 @@
     </aop:config>
     <!-- 扫描基础包 -->
     <context:component-scan base-package="com" />
+    <!--日志-->
+    <bean id="logAdvice" class="com.advice.LogAdvice">
+
+    </bean>
+    <aop:config>
+        <aop:aspect ref="logAdvice">
+            <aop:pointcut id="bizMethod" expression="execution(* com.service.impl.*.*(..))"/>
+            <aop:after-throwing method="doAround" pointcut-ref="bizMethod" throwing="tb" />
+        </aop:aspect>
+    </aop:config>
 </beans>
