@@ -23,9 +23,9 @@
             <div class="col-md-4"></div>
             <div class="col-md-4">
                 <form id="loginForm" >
-                    <div class="form-group">
+                    <div class="form-group has-error">
                         <label for="username">Username</label>
-                        <input type="username" class="form-control" id="username" placeholder="Username" name="username">
+                        <input type="username" class="form-control " id="username" placeholder="Username" name="username">
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
