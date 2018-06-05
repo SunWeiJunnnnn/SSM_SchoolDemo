@@ -12,8 +12,6 @@ public class UserServiceImpl implements UserService {
     private UserDao dao;
 
     public User checkLogin(String username, String password) {
-        if(true)
-            throw new ClassCastException("类型错误信息");
         return dao.checkLogin(username,password);
     }
 }

@@ -23,18 +23,20 @@ public class LogAdvice {
     public Object doAround(JoinPoint pj, Throwable tb) throws Throwable {
         //获得日志生成时间时间
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Calendar date = Calendar.getInstance();
-
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy_MM_dd");
+        //日期
+        Date date = new Date(System.currentTimeMillis());
+        //日志格式
         //获得类
        String className =  pj.getTarget().getClass().getName();
        //获得方法名
         String methodName = pj.getSignature().getName();
         StringBuilder log = new StringBuilder();
         String mes = tb.getMessage();
+
         log.append(format.format(date) + ":" + className + "执行了" + "出错："+ tb.getMessage());
-
-
-        File logFile = new File("C:\\Users\\junan\\Desktop\\log"+date.get(Calendar.MONTH)+date.get(Calendar.DAY_OF_MONTH)+".log");
+        //每天会新增一个log文件，文件名: 日期+log.log
+        File logFile = new File("../logs/schooldemo/"+format1.format(date)+"log.log");
         FileWriter writer = new FileWriter(logFile,true);
         BufferedWriter bw = new BufferedWriter(writer);
         try {
